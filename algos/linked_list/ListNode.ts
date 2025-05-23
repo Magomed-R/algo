@@ -7,5 +7,3 @@ export default class ListNode {
         this.next = next === undefined ? null : next;
     }
 }
-
-const list = new ListNode(6, new ListNode(18, new ListNode(7)))
