@@ -1,15 +1,10 @@
 import TreeNode from './entities/TreeNode'
 
-export function kthSmallest(root: TreeNode | null, k: number, count: { value: number } = { value: 1 }): number {
-  if (!root) return -1
-  const left = kthSmallest(root.left, k, count)
-  if (root.val === k) return count.value
-  count.value++
-  kthSmallest(root.right, k, count)
-  return count.value
+export function kthSmallest(root: TreeNode | null, k: number, take: 'left' | 'right' = 'left', parent?: TreeNode | null): number {
+  const transformBstToArray = (bst: TreeNode | null): number[] => {
+    if (!bst) return []
+    return [...transformBstToArray(bst.left), bst.val, ...transformBstToArray(bst.right)]
+  }
+
+  return transformBstToArray(root)[k - 1]
 }
-
-const tree = new TreeNode(3, new TreeNode(1, null, new TreeNode(2)), new TreeNode(4))
-const k = 1
-
-kthSmallest(tree, k)
