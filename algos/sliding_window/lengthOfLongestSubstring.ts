@@ -1,26 +1,20 @@
-export default
+export function lengthOfLongestSubstring(s: string): number {
+  const used = new Set()
+  let left = 0
+  let right = 0
+  let max = 0
 
-function lengthOfLongestSubstring(s: string): number {
-    let start = 0
-    let end = 0
-    let longest = 0
-
-    for (let i = 0; i < s.length;) {
-        const window = s.slice(start, end+1)
-
-        if (window.includes(s[i])) start++
-        else {
-            end++
-            i++
-        }
-
-        if (end - start > longest) longest = end - start
+  while (right < s.length) {
+    if (!used.has(s[right])) {
+      used.add(s[right])
+      right++
+    } else {
+      used.delete(s[left])
+      left++
     }
 
-    return longest
-};
+    if (max < used.size) max = used.size
+  }
 
-
-const s = "pwwkew"
-    
-lengthOfLongestSubstring(s)
+  return max
+}
